@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Female Digital Health Twin — PPH Risk Model</title>
+<meta name="description" content="An interactive demo of a longitudinal Female Digital Health Twin for modeling postpartum hemorrhage risk across pregnancy and the postpartum period.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">FDHT</span>
+      <span class="brand-name">Female Digital<br>Health Twin</span>
+    </div>
+    <nav class="nav" aria-label="Sections">
+      <button class="nav-item is-active" data-section="overview">Overview</button>
+      <button class="nav-item" data-section="explorer">Explorer</button>
+      <button class="nav-item" data-section="scenarios">Scenarios</button>
+      <button class="nav-item" data-section="timelapse">Time-lapse</button>
+    </nav>
+    <div class="sidebar-foot">
+      <p>VIHAR Center &amp; PRoBE Lab<br>University of Pittsburgh</p>
+      <p class="disclaimer-tag">Illustrative demo — not a validated clinical tool</p>
+    </div>
+  </aside>
+
+  <main class="content">
+
+    <!-- OVERVIEW -->
+    <section id="overview" class="section is-active">
+      <div class="hero">
+        <div class="hero-text">
+          <p class="kicker">A four-window digital twin for postpartum hemorrhage</p>
+          <h1>Risk isn't a single number.<br>It's a record over time.</h1>
+          <p class="lede">Postpartum hemorrhage (PPH) is a preventable maternal emergency, but electronic health records treat delivery as a boundary — antepartum labs, intrapartum events, and postpartum vitals are rarely linked into one evolving picture of risk. This demo shows what changes when they are.</p>
+        </div>
+        <div class="hero-visual">
+          <svg viewBox="0 0 360 200" id="heroSvg" aria-hidden="true">
+            <rect x="30" y="10" width="320" height="36" fill="var(--tier-critical)" opacity="0.14"></rect>
+            <rect x="30" y="46" width="320" height="45" fill="var(--tier-high)" opacity="0.14"></rect>
+            <rect x="30" y="91" width="320" height="45" fill="var(--tier-moderate)" opacity="0.14"></rect>
+            <rect x="30" y="136" width="320" height="54" fill="var(--tier-low)" opacity="0.14"></rect>
+            <polyline id="heroLine" fill="none" stroke="var(--ink)" stroke-width="2"></polyline>
+            <circle id="heroDot" r="4.5" fill="var(--tier-high)"></circle>
+          </svg>
+          <p class="hero-caption">A single simulated patient, replayed automatically — see <strong>Time-lapse</strong> to explore it step by step.</p>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="grid-cols">
+        <div>
+          <h2>Four clinical windows, one patient</h2>
+          <p>Rather than assessing risk at a single moment — most often at hospital admission — this model treats pregnancy and the postpartum period as one continuous record, organized into four windows:</p>
+          <dl class="window-list">
+            <div><dt>Antepartum</dt><dd>Hemoglobin, platelets, fibrinogen, placental findings, prior history</dd></div>
+            <div><dt>Intrapartum</dt><dd>Labor duration, mode of delivery, augmentation, blood loss at delivery</dd></div>
+            <div><dt>Immediate postpartum</dt><dd>Vitals, fundal tone, coagulation labs, lactate — the first 24 hours</dd></div>
+            <div><dt>Extended postpartum</dt><dd>Hemoglobin trends, retained tissue, delayed bleeding, biomarkers — up to 12 weeks</dd></div>
+          </dl>
+        </div>
+        <div>
+          <h2>Why mitochondrial DNA</h2>
+          <p>Cell-free mitochondrial DNA (mtDNA) is released when placental or vascular tissue is under stress. Because it lacks the packaging of nuclear DNA, the immune system reads it as a danger signal — a mechanism well documented in trauma and sepsis, and actively being tested here as an early marker of the physiology that precedes hemorrhage.</p>
+          <p>Explore <strong>Explorer</strong> and <strong>Scenarios</strong> to see how this and other signals move a composite risk score, and which window they come from.</p>
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="callout">
+        <p><strong>About this demo.</strong> The scoring model here is a simplified, illustrative weighting of established risk factors — built to demonstrate the four-window concept, not a statistically validated clinical instrument. It is intended for teaching and internal discussion, not patient care.</p>
+      </div>
+    </section>
+
+    <!-- EXPLORER -->
+    <section id="explorer" class="section">
+      <p class="kicker">Interactive model</p>
+      <h1>Explorer</h1>
+      <p class="lede">Adjust variables across all four windows and watch the composite risk score respond. Every window contributes simultaneously — this is the digital twin integrating the whole record, not just the window you're looking at.</p>
+      <div id="explorerRoot"></div>
+    </section>
+
+    <!-- SCENARIOS -->
+    <section id="scenarios" class="section">
+      <p class="kicker">Case-based quiz</p>
+      <h1>Scenarios</h1>
+      <p class="lede">Read a patient vignette, predict the risk tier, then reveal the underlying data to see what the model saw — and whether your clinical instinct matched it.</p>
+      <div id="scenariosRoot"></div>
+    </section>
+
+    <!-- TIMELAPSE -->
+    <section id="timelapse" class="section">
+      <p class="kicker">Longitudinal replay</p>
+      <h1>Time-lapse</h1>
+      <p class="lede">Watch one patient's risk score build as clinical data arrives — lab by lab, window by window — rather than as a single snapshot.</p>
+      <div id="timelapseRoot"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/explorer.js"></script>
+<script src="js/scenarios.js"></script>
+<script src="js/timelapse.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
